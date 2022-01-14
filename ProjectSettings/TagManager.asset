@@ -10,10 +10,70 @@ TagManager:
   - Enemy
   - Falls
   - Checkpoint
-  - Cp2
-  - Cp1
-  - CpEnd
   - End
+  - Enemy1
+  - Enemy2
+  - box
+  - Enemy3
+  - Enemy4
+  - Enemy5
+  - Minibox
+  - areamini
+  - Minibos
+  - Boss
+  - Enemy6
+  - Enemy7
+  - Enemy8
+  - Enemy9
+  - Enemy10
+  - Enemy11
+  - Enemy12
+  - Enemy13
+  - Enemy14
+  - Enemy15
+  - Enemy16
+  - Enemy17
+  - Enemy18
+  - Enemy19
+  - Enemy20
+  - Enemy21
+  - Enemy22
+  - Enemy23
+  - Enemy24
+  - Enemy25
+  - Enemy26
+  - Enemy27
+  - Enemy28
+  - Enemy29
+  - Enemy30
+  - BirdBuffEnd
+  - Enemy31
+  - Enemy32
+  - Enemy33
+  - box2
+  - box3
+  - hitbox1
+  - hitbox2
+  - hitbox3
+  - hitbox4
+  - hitbox5
+  - hitbox6
+  - hitbox7
+  - hitbox8
+  - hitbox9
+  - hitbox10
+  - hitbox11
+  - hitbox12
+  - hitbox13
+  - hitbox14
+  - hitbox15
+  - hitbox16
+  - hitbox17
+  - boxdewa
+  - htp
+  - Akar
+  - Akar2
+  - DwDiag
   layers:
   - Default
   - TransparentFX
