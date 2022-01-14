@@ -8,13 +8,14 @@ public class CharaMovement : MonoBehaviour
     Rigidbody2D rb;
     SpriteRenderer spriteren;
     bool isGround;
-    private float spd = 6;
+    public float spd = 6;
     public int combo;
-    private float jmp = 9;
+    public float jmp = 9;
     public bool canatt;
     private Vector3 respawnpo;
     public GameObject fall;
     GameObject plyr;
+    GameObject ehe;
     public float dashforce;
     public float startdashtime;
     float currentdashtimer;
@@ -23,7 +24,11 @@ public class CharaMovement : MonoBehaviour
     bool isdash;
     float movx;
     public UIFlow floww;
+    float horizon;
     PlayerHealth ph;
+    Zoom zm;
+    public AudioSource asz;
+    public AudioClip[] acz;
     [SerializeField]
     Transform groundcheck;
     // Start is called before the first frame update
@@ -31,11 +36,13 @@ public class CharaMovement : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         plyr = GameObject.FindGameObjectWithTag("Player");
+        ehe = GameObject.FindGameObjectWithTag("Enemy");
         ph = plyr.GetComponent<PlayerHealth>();
         rb = GetComponent<Rigidbody2D>();
         spriteren = GetComponent<SpriteRenderer>();
         respawnpo = transform.position;
         cr = GetComponent<CharaMovement>();
+        asz = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -65,7 +72,9 @@ public class CharaMovement : MonoBehaviour
             rb.velocity = new Vector2(-spd, rb.velocity.y);
 
             anim.SetBool("IsWalk", true);
-
+            Vector3 scales = transform.localScale;
+            scales.x *= -1;
+            transform.localScale = scales;
             spriteren.flipX = false;
         }
       
@@ -73,7 +82,15 @@ public class CharaMovement : MonoBehaviour
         {
             anim.SetBool("IsWalk", false);
             rb.velocity = new Vector2(0, rb.velocity.y);
+            if (spriteren.flipX == false)
+            {
+                Vector3 scales = transform.localScale;
+                scales.x *= -1;
+                transform.localScale = scales;
+            }
+            
         }
+        
         if (Input.GetKey("space") || Input.GetKey("w"))
         {
             if (isGround)
@@ -90,6 +107,7 @@ public class CharaMovement : MonoBehaviour
             anim.SetBool("IsJump", false);
         }
         combos();
+        skill();
         
     }
 
@@ -108,43 +126,50 @@ public class CharaMovement : MonoBehaviour
         else if (collision.gameObject.CompareTag("Checkpoint"))
         {
             respawnpo = transform.position;
-            spd = 6;
-            jmp = 9;
+            
         }
-        else if (collision.gameObject.CompareTag("Cp1"))
-        {
-            spd = 9;
-        }
-        else if (collision.gameObject.CompareTag("Cp2"))
-        {
-            spd = 9;
-            jmp = 12;
-        }
-        else if (collision.gameObject.CompareTag("CpEnd"))
-        {
-            spd = 7;
-            jmp = 8;
-        }
+        
         else if (collision.gameObject.CompareTag("End"))
         {
             UIFlow.Instance.winn();
             cr.enabled = false;
 
         }
+        else if (collision.gameObject.CompareTag("areamini"))
+        {
+            if (ph.currentHealth > 0)
+            {
+                ph.damaged = false;
+            }
+
+        }
+
 
     }
     public void combos()
     {
-        if (Input.GetKey("q"))
+        if (Input.GetKey("q") && !canatt)
         {
             canatt = true;
             anim.SetTrigger("" + combo);
+            asz.clip = acz[combo];
+            asz.Play();
+            anim.SetBool("CanAtt", true);
+        }
+    }
+
+    public void skill()
+    {
+        if (Input.GetKey("e") && !canatt)
+        {
+            canatt = true;
+            anim.SetTrigger("2");
         }
     }
     public void startcombos()
     {
         canatt = false;
-        if (combo < 3)
+        if (combo < 1)
         {
             combo++;
         }
@@ -153,6 +178,7 @@ public class CharaMovement : MonoBehaviour
     {
         canatt = false;
         combo = 0;
+        anim.SetBool("CanAtt", false);
     }
 
 }

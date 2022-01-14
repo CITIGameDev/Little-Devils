@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnerAkar : MonoBehaviour
+public class SpawnerAkar1 : MonoBehaviour
 {
     public GameObject spawnnobj;
     public Transform spwns;
@@ -42,9 +42,9 @@ public class SpawnerAkar : MonoBehaviour
         else
         {
             spwnobj();
-            
+
             currspwn = timespwn;
-            
+
 
 
 
@@ -54,7 +54,7 @@ public class SpawnerAkar : MonoBehaviour
 
     void destroyss()
     {
-        Destroy(gameObject); 
+        Destroy(gameObject);
     }
 
     public void spwnobj()
@@ -62,7 +62,7 @@ public class SpawnerAkar : MonoBehaviour
         Instantiate(spawnnobj, spwns.localPosition, spwns.localRotation);
     }
 
-    
+
 
     public void OnBecameInvisible()
     {

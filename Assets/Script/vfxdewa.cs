@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Akars : MonoBehaviour
+public class vfxdewa : MonoBehaviour
 {
     PlayerHealth darahmc;
-    public int attackDamage = 10;
+    public int attackDamage = 5;
     GameObject playerss;
     public float timer;
     EnemyHealth1 ehee1;
@@ -16,7 +16,7 @@ public class Akars : MonoBehaviour
     {
         playerss = GameObject.FindGameObjectWithTag("Player");
         darahmc = playerss.GetComponent<PlayerHealth>();
-        akarr = GameObject.FindGameObjectWithTag("Enemy4");
+        akarr = GameObject.FindGameObjectWithTag("Boss");
         Destroy(gameObject, 1.3f);
     }
 
@@ -27,7 +27,7 @@ public class Akars : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        
+
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -42,7 +42,7 @@ public class Akars : MonoBehaviour
 
     }
 
-    
+
     public void OnBecameInvisible()
     {
         Destroy(gameObject);

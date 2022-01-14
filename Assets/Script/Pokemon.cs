@@ -17,7 +17,7 @@ public class Pokemon : MonoBehaviour, ICollisionHandler
     GameObject players;
     PlayerHealth darahmc;
 
-    private float cooldown = 10;
+    public float cooldown = 10;
 
     private bool CanAtt = true;
 
@@ -104,7 +104,7 @@ public class Pokemon : MonoBehaviour, ICollisionHandler
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
-        {
+        {   
             if (darahmc.currentHealth > 0)
             {
                 darahmc.TakeDamage(10);

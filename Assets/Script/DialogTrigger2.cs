@@ -2,29 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialogTrigger : MonoBehaviour
+public class DialogTrigger2 : MonoBehaviour
 {
-    public Message[] messages;
-    public Actor[] actors;
-    
-
+    public Messagesz[] messagese;
+    public Actorsz[] actorse;
     public void StartDialog()
     {
         UIFlow.Instance.startdial();
-        FindObjectOfType<DialogManager>().OpenDialog(messages, actors);
-        
+        FindObjectOfType<DialogManager2>().OpenDialog(messagese, actorse);
+
     }
 }
 
 [System.Serializable]
-public class Message
+public class Messagesz
 {
-    public int actorid;
+    public int actoridd;
     public string message;
 }
 
 [System.Serializable]
-public class Actor
+public class Actorsz
 {
     public string name;
     public Sprite sprite;

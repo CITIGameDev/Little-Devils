@@ -2,34 +2,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class PlayerHealth : MonoBehaviour
+public class DewaHealth : MonoBehaviour
 {
-    CameraShake csh;
-    public int startingHealth = 100;
+    public int startingHealth = 500;
     public int currentHealth;
     public Slider healthSlider;
     public Image damageImage;
-    public float flashSpeed = 5f;
-    public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
-
-    CharaMovement cm;
     public Animator anim;
-    AudioSource playerAudio;
-    bool isDead;
-    public bool damaged;
+    GameObject ply;
+    CharaMovement crs;
+    public GameObject partic;
+    public DialogTrigger2 dg2;
+    GameObject dgdw;
+    Dewa dw;
+    DialogManager2 dg22;
+
     public AudioClip bgover;
     AudioManager1 amr;
-
-    void Awake()
+    AudioSource playerAudio;
+    public bool isDead;
+    bool damaged;
+    // Start is called before the first frame update
+    void Start()
     {
         //get reference component
         anim = GetComponent<Animator>();
         playerAudio = GetComponent<AudioSource>();
         currentHealth = startingHealth;
-        cm = GetComponent<CharaMovement>();
+        ply = GameObject.FindGameObjectWithTag("Player");
+        crs = ply.GetComponent<CharaMovement>();
+        dgdw = GameObject.FindGameObjectWithTag("DwDiag");
         amr = FindObjectOfType<AudioManager1>();
-        csh = FindObjectOfType<CameraShake>();
+        dw = GetComponent<Dewa>();
+        
+
     }
 
 
@@ -39,30 +47,32 @@ public class PlayerHealth : MonoBehaviour
         if (damaged)
         {
             //Merubah warna gambar menjadi value dari flashColour
-            damageImage.color = flashColour;
-            csh.ShakeIt();
 
-            
+            anim.SetBool("IsHurtsz", true);
         }
         else
         {
             //Fade out damage image
-            damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
-            
+
+            anim.SetBool("IsHurtsz", false);
         }
         if (currentHealth <= 0)
         {
+
             if (bgover != null)
             {
                 amr.chgbgm(bgover);
             }
-            anim.SetBool("IsDead", true);
-            UIFlow.Instance.GameOver();
             Death();
+                
+            SceneManager.LoadScene("Outro");
+
         }
         //Set damage to false
         damaged = false;
-        
+
+       
+
     }
 
     //fungsi untuk mendapatkan damage
@@ -73,23 +83,10 @@ public class PlayerHealth : MonoBehaviour
         //mengurangi health
         currentHealth -= amount;
 
-        //Merubah tampilan dari health slider
         healthSlider.value = currentHealth;
 
-        
-
-        //Memainkan suara ketika terkena damage
-
-    }
-
-    public void TakeHealth(int amou)
-    {
-
-        //mengurangi health
-        currentHealth += amou;
-
         //Merubah tampilan dari health slider
-        healthSlider.value = currentHealth;
+
 
 
 
@@ -100,8 +97,14 @@ public class PlayerHealth : MonoBehaviour
     public void Death()
     {
         isDead = true;
-        cm.enabled = false;
+        UIFlow.Instance.dewas();
+
+        crs.enabled = false;
+        dw.enabled = false;
+        Instantiate(partic, transform.position, Quaternion.identity);
+        Destroy(this.gameObject);
+        
+        
+
     }
-
-
 }
